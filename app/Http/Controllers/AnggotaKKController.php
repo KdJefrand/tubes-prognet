@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Anggotakk;
+use App\Models\AnggotaKK;
 
 class AnggotaKKController extends Controller
 {
@@ -14,7 +14,7 @@ class AnggotaKKController extends Controller
      */
     public function index()
     {
-        return view('anggotakk');
+        return AnggotaKK::all();
     }
 
     /**
@@ -35,7 +35,9 @@ class AnggotaKKController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $anggotakk = new AnggotaKK();
+        $anggotakk->fill($request->all())->save();
+        return $anggotakk;
     }
 
     /**
@@ -46,7 +48,7 @@ class AnggotaKKController extends Controller
      */
     public function show($id)
     {
-        //
+        return AnggotaKK::find($id);
     }
 
     /**
@@ -69,7 +71,9 @@ class AnggotaKKController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $anggotakk = AnggotaKK::find($id);
+        $anggotakk->fill($request->all())->save();
+        return $anggotakk;
     }
 
     /**
@@ -80,6 +84,7 @@ class AnggotaKKController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $anggotakk = AnggotaKK::find($id);
+        $anggotakk->delete();
     }
 }

@@ -14,7 +14,7 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        return view('penduduk');
+        return Penduduk::all();
     }
 
     /**
@@ -35,7 +35,9 @@ class PendudukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $penduduk = new Penduduk();
+        $penduduk->fill($request->all())->save();
+        return $penduduk;
     }
 
     /**
@@ -46,7 +48,8 @@ class PendudukController extends Controller
      */
     public function show($id)
     {
-        //
+        $agama = Agama::find($id);
+        return $agama;
     }
 
     /**
@@ -69,7 +72,9 @@ class PendudukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $penduduk = Penduduk::find($id);
+        $penduduk->fill($request->all())->save();
+        return $penduduk;
     }
 
     /**
@@ -80,6 +85,7 @@ class PendudukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $penduduk = Penduduk::find($id);
+        $penduduk->delete();
     }
 }

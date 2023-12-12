@@ -14,7 +14,7 @@ class AgamaController extends Controller
      */
     public function index()
     {
-        return view('agama');
+        return Agama::all();
     }
 
     /**

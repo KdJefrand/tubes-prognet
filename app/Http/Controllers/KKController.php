@@ -14,7 +14,7 @@ class KKController extends Controller
      */
     public function index()
     {
-        return view('kartukeluarga');
+        return KK::all();
     }
 
     /**
@@ -35,7 +35,9 @@ class KKController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kk = new KK();
+        $kk->fill($request->all())->save();
+        return $kk;
     }
 
     /**
@@ -46,7 +48,7 @@ class KKController extends Controller
      */
     public function show($id)
     {
-        //
+        return KK::find($id);
     }
 
     /**
@@ -69,7 +71,9 @@ class KKController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $kk = KK::find($id);
+        $kk->fill($request->all())->save();
+        return $kk;
     }
 
     /**
@@ -80,6 +84,7 @@ class KKController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kk = KK::find($id);
+        $kk->delete();
     }
 }
