@@ -7,6 +7,7 @@ use App\Http\Controllers\AnggotaKKController;
 use App\Http\Controllers\HubunganKKController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/Penduduk', PendudukController::class);
-Route::apiResource('/KK', KKController::class);
-Route::apiResource('/HubunganKK', HubunganKKController::class);
-Route::apiResource('/Agama', AgamaController::class);
-Route::apiResource('/AnggotaKK', AnggotaKKController::class);
+Route::apiResource('/Penduduk', PendudukController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/KK', KKController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/HubunganKK', HubunganKKController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/Agama', AgamaController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/AnggotaKK', AnggotaKKController::class)->middleware(['auth:sanctum']);
+
+Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
+Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum']);
+

@@ -36,7 +36,7 @@ class AnggotaKKController extends Controller
     public function store(Request $request)
     {
         $anggotakk = new AnggotaKK();
-        $anggotakk->fill($request->all())->save();
+        $anggotakk->fill($request->json()->all())->save();
         return $anggotakk;
     }
 
@@ -72,7 +72,7 @@ class AnggotaKKController extends Controller
     public function update(Request $request, $id)
     {
         $anggotakk = AnggotaKK::find($id);
-        $anggotakk->fill($request->all())->save();
+        $anggotakk->fill($request->json()->all())->save();
         return $anggotakk;
     }
 

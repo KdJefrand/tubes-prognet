@@ -36,7 +36,7 @@ class HubunganKKController extends Controller
     public function store(Request $request)
     {
         $hubungankk = new HubunganKK();
-        $hubungankk->fill($request->all())->save();
+        $hubungankk->fill($request->json()->all())->save();
         return $hubungankk;
     }
 
@@ -72,7 +72,7 @@ class HubunganKKController extends Controller
     public function update(Request $request, $id)
     {
         $hubungankk = HubunganKK::find($id);
-        $hubungankk->fill($request->all())->save();
+        $hubungankk->fill($request->json()->all())->save();
         return $hubungankk;
 
     }

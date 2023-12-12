@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penduduk;
+use App\Models\Anggotakk;
 
 class PendudukController extends Controller
 {
@@ -36,7 +37,7 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $penduduk = new Penduduk();
-        $penduduk->fill($request->all())->save();
+        $penduduk->fill($request->json()->all())->save();
         return $penduduk;
     }
 
@@ -48,8 +49,8 @@ class PendudukController extends Controller
      */
     public function show($id)
     {
-        $agama = Agama::find($id);
-        return $agama;
+        $penduduk = Penduduk::find($id);
+        return $penduduk;
     }
 
     /**
@@ -73,7 +74,8 @@ class PendudukController extends Controller
     public function update(Request $request, $id)
     {
         $penduduk = Penduduk::find($id);
-        $penduduk->fill($request->all())->save();
+        $penduduk->fill($request->json()->all())->save();
+
         return $penduduk;
     }
 
