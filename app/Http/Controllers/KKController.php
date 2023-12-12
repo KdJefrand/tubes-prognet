@@ -14,7 +14,7 @@ class KKController extends Controller
      */
     public function index()
     {
-        return Kk::all();
+        return view('kartukeluarga');
     }
 
     /**

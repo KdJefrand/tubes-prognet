@@ -14,7 +14,7 @@ class AnggotaKKController extends Controller
      */
     public function index()
     {
-        return Anggotakk::all();
+        return view('anggotakk');
     }
 
     /**

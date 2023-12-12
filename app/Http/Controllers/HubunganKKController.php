@@ -14,7 +14,7 @@ class HubunganKKController extends Controller
      */
     public function index()
     {
-        return Hubungankk::all();
+        return view('hubungankk');
     }
 
     /**
