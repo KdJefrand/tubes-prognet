@@ -14,7 +14,7 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        return Penduduk::all();
+        return view('penduduk');
     }
 
     /**
