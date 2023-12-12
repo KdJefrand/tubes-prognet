@@ -14,7 +14,7 @@ class KKController extends Controller
      */
     public function index()
     {
-        return KK::all();
+        return Kk::all();
     }
 
     /**

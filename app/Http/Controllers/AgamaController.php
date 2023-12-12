@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\Agama;
+use App\Models\Agama;
 
 class AgamaController extends Controller
 {
@@ -35,7 +35,9 @@ class AgamaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $agama = new Agama();
+        $agama->fill($request->all())->save();
+        return $agama;
     }
 
     /**
@@ -46,7 +48,8 @@ class AgamaController extends Controller
      */
     public function show($id)
     {
-        //
+        $agama = Agama::find($id);
+        return $agama;
     }
 
     /**
@@ -57,7 +60,7 @@ class AgamaController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -69,7 +72,9 @@ class AgamaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $agama = Agama::find($id);
+        $agama->fill($request->all())->save();
+        return $agama;
     }
 
     /**
@@ -80,6 +85,7 @@ class AgamaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $agama = Agama::find($id);
+        $agama->delete();
     }
 }
