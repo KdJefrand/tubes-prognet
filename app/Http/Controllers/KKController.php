@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\KK;
 
 class KKController extends Controller
 {
@@ -13,7 +14,7 @@ class KKController extends Controller
      */
     public function index()
     {
-        //
+        return KK::all();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Penduduk;
 
 class PendudukController extends Controller
 {
@@ -13,7 +14,7 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        //
+        return Penduduk::all();
     }
 
     /**
