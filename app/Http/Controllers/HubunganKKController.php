@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\HubunganKK;
+use App\Models\Hubungankk;
 
 class HubunganKKController extends Controller
 {
@@ -14,7 +14,7 @@ class HubunganKKController extends Controller
      */
     public function index()
     {
-        return HubunganKK::all();
+        return Hubungankk::all();
     }
 
     /**
