@@ -23,9 +23,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/Penduduk', PendudukController::class);
-Route::resource('/KK', KartuKeluargaController::class);
-Route::resource('/HubunganKK', HubunganKKController::class);
-Route::resource('/Agama', AgamaController::class);
-Route::resource('/AnggotaKK', AnggotaKKController::class);
-Route::resource('/Login', LoginController::class);
+Route::resource('/Penduduk', PendudukController::class); //->middleware('auth:sanctum');
+Route::resource('/KK', KartuKeluargaController::class)->middleware('auth:sanctum');
+Route::resource('/HubunganKK', HubunganKKController::class)->middleware('auth:sanctum');
+Route::resource('/Agama', AgamaController::class); //->middleware('auth:sanctum');
+Route::resource('/AnggotaKK', AnggotaKKController::class)->middleware('auth:sanctum');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+

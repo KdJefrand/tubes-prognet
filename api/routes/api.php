@@ -1,5 +1,6 @@
 <?php
 
+use Barryvdh\Cors\HandleCors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgamaController;
@@ -24,10 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/Penduduk', PendudukController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/Penduduk', PendudukController::class); //->middleware(['auth:sanctum']);
 Route::apiResource('/KK', KKController::class)->middleware(['auth:sanctum']);
 Route::apiResource('/HubunganKK', HubunganKKController::class)->middleware(['auth:sanctum']);
-Route::apiResource('/Agama', AgamaController::class)->middleware(['auth:sanctum']);
+Route::apiResource('/Agama', AgamaController::class); //->middleware(['auth:sanctum']);
 Route::apiResource('/AnggotaKK', AnggotaKKController::class)->middleware(['auth:sanctum']);
 
 Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
