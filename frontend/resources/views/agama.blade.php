@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>
+            if (localStorage.getItem('token') == null) {
+                window.location.href = '/login';
+            }
+        </script>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -77,7 +82,11 @@
         <script src="{{ asset('js/scripts.js')}}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                fetch('http://127.0.0.1:8000/api/Agama')
+                fetch('http://127.0.0.1:8000/api/Agama', {
+                    headers: {
+                        'Authorization' : 'Bearer '+ localStorage.getItem('token')
+                    }
+                })
                 .then(response => response.json())
                 .then(data => {
                 // Get the table body element
@@ -109,6 +118,9 @@
                         deleteButton.className = 'btn btn-danger';
                         deleteButton.addEventListener('click', () => {
                             fetch(`http://127.0.0.1:8000/api/Agama/${item.id}`, {
+                                headers: {
+                                    'Authorization' : 'Bearer '+ localStorage.getItem('token')
+                                },
                                 method: 'DELETE'
                             })
                             .then(response => {

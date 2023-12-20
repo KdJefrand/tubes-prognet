@@ -9,7 +9,7 @@ class AgamaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('agama');
     }
@@ -35,7 +35,7 @@ class AgamaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('agama_edit');
     }
 
     /**

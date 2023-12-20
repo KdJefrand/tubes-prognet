@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class AuthenticationController extends Controller
@@ -38,8 +39,12 @@ class AuthenticationController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
+        $token = $user->createToken('User login')->plainTextToken;
 
-        return $user->createToken('User login')->plainTextToken;
+        return response()->json([
+            'token' => $token,
+            'redirectTo' => '/Dashboard', // Change this to your desired redirect URL
+        ]);
     }
     public function register(Request $request)
     {
@@ -59,9 +64,28 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        try {
+            $accessToken = $request->user()->currentAccessToken();
 
-        return 'Token deleted!';
+            // Retrieve information about the access token
+            $tokenDetails = [
+                'id' => $accessToken->id,
+                'name' => $accessToken->name,
+                // Add other relevant details you want to retrieve
+            ];
+
+            // Delete the access token
+            $accessToken->delete();
+
+            // Return the details if needed (this part is optional)
+            return response()->json(['token_details' => $tokenDetails]);
+        } catch (\Exception $e) {
+            // Log the exception for debugging
+            Log::error('Error during logout: ' . $e->getMessage());
+
+            // You can also return an error response if needed
+            return response()->json(['error' => 'Error during logout'], 500);
+        }
     }
 
 }

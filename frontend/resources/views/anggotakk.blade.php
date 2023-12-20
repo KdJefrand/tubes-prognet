@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>
+            if (localStorage.getItem('token') == null) {
+                window.location.href = '/login';
+            }
+        </script>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />

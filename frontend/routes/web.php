@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\AnggotaKKController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HubunganKKController;
 use App\Http\Controllers\KartuKeluargaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +25,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/Penduduk', PendudukController::class); //->middleware('auth:sanctum');
-Route::resource('/KK', KartuKeluargaController::class)->middleware('auth:sanctum');
-Route::resource('/HubunganKK', HubunganKKController::class)->middleware('auth:sanctum');
-Route::resource('/Agama', AgamaController::class); //->middleware('auth:sanctum');
-Route::resource('/AnggotaKK', AnggotaKKController::class)->middleware('auth:sanctum');
+Route::resource('/Penduduk', PendudukController::class);
+Route::resource('/KK', KartuKeluargaController::class);
+Route::resource('/HubunganKK', HubunganKKController::class);
+Route::resource('/Agama', AgamaController::class);
+Route::resource('/AnggotaKK', AnggotaKKController::class);
+Route::resource('/Dashboard', DashboardController::class);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 

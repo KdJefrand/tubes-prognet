@@ -17,8 +17,8 @@
                     <br>
                 </div>
                 <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Username Anda" required>
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" aria-describedby="email" placeholder="Email Anda" required>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -42,16 +42,21 @@
     document.querySelector('form').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const name = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('exampleInputPassword1').value;
 
         axios.post('http://127.0.0.1:8000/api/login', {
-            name: name,
+            email: email,
             password: password,
         })
         .then(function (response) {
             // Handle successful login (e.g., redirect)
             console.log(response.data);
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            
+            const redirectTo = response.data.redirectTo;
+            window.location.href = redirectTo;
         })
         .catch(function (error) {
             // Handle login error
