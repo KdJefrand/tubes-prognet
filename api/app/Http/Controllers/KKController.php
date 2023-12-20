@@ -36,7 +36,7 @@ class KKController extends Controller
     public function store(Request $request)
     {
         $kk = new KK();
-        $kk->fill($request->json()->all())->save();
+        $kk->fill($request->all())->save();
         return $kk;
     }
 
@@ -72,7 +72,7 @@ class KKController extends Controller
     public function update(Request $request, $id)
     {
         $kk = KK::find($id);
-        $kk->fill($request->json()->all())->save();
+        $kk->fill($request->all())->save();
         return $kk;
     }
 

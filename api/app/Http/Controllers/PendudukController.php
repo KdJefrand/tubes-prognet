@@ -37,7 +37,7 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $penduduk = new Penduduk();
-        $penduduk->fill($request->json()->all())->save();
+        $penduduk->fill($request->all())->save();
         return $penduduk;
     }
 
@@ -74,7 +74,7 @@ class PendudukController extends Controller
     public function update(Request $request, $id)
     {
         $penduduk = Penduduk::find($id);
-        $penduduk->fill($request->json()->all())->save();
+        $penduduk->fill($request->all())->save();
 
         return $penduduk;
     }

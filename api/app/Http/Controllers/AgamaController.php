@@ -15,7 +15,7 @@ class AgamaController extends Controller
     public function index()
     {
         //return Agama::all();
-        return view('agama');
+        return Agama::all();
     }
 
     /**
@@ -37,7 +37,7 @@ class AgamaController extends Controller
     public function store(Request $request)
     {
         $agama = new Agama();
-        $agama->fill($request->json()->all())->save();
+        $agama->fill($request->all())->save();
         return $agama;
     }
 
@@ -74,7 +74,7 @@ class AgamaController extends Controller
     public function update(Request $request, $id)
     {
         $agama = Agama::find($id);
-        $agama->fill($request->json()->all())->save();
+        $agama->fill($request->all())->save();
         return $agama;
     }
 
