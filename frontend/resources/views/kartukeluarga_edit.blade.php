@@ -40,13 +40,13 @@
                                                 </div>
                                                 <div class="form-floating mb-3">
                                                     <Select class="form-control" id="statusaktif">
-                                                        <option selected hidden>Pilih Status</option>
                                                         <option value="1">Aktif</option>
                                                         <option value="0">Tidak Aktif</option>
                                                     </Select>
                                                     <label for="statusaktif">Status</label>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                    <input type="hidden" id="editItemId" name="editItemId">
                                                     <a class="btn btn-primary" href="/KK">Kembali</a>
                                                     <button class="btn btn-primary" type="submit">Buat</button>
                                                 </div>
@@ -74,41 +74,77 @@
         <script src="{{ asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{ asset('js/scripts.js')}}"></script>
         <script>
-            document.getElementById('myForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+        // Get the item ID from the URL
+        const itemId = window.location.pathname.split('/').pop();
 
-                // Get the value of the 'nokk' input
-                const nokkValue = document.getElementById('nokk').value;
-                const statusaktifValue = document.getElementById('statusaktif').value;
+        // Fetch existing data for editing
+        fetch(`http://127.0.0.1:8000/api/KK/${itemId}`, {
+            headers:{
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => response.json())
+            .then(existingData => {
+            // Fill the form fields with existing data
+            document.getElementById('nokk').value = existingData.nokk;
+            // Get the <select> element
+            const statusSelect = document.getElementById('statusaktif');
 
-                console.log(nokkValue);
-                console.log(statusaktifValue);
+            // Loop through the options to find the one with the existing statusaktif value
+            for (let i = 0; i < statusSelect.options.length; i++) {
+                if (statusSelect.options[i].value === existingData.statusaktif.toString()) {
+                    // Set the 'selected' attribute if the values match
+                    statusSelect.options[i].selected = true;
+                    break; // Break out of the loop once found
+                }
+            }
+            document.getElementById('editItemId').value = existingData.id;
+        })
+        .catch(error => {
+            console.error('Error fetching existing data:', error);
+        });
+        </script>
 
-                // Prepare the form data
-                const formData = new FormData();
-                formData.append('nokk', nokkValue);
-                formData.append('statusaktif', statusaktifValue);
+<!-- Script to Handle Edit Form Submission -->
+<script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-                // Make a POST request using the Fetch API
-                fetch('http://127.0.0.1:8000/api/KK', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Authorization' : 'Bearer ' + localStorage.getItem('token')
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response from the server (you can replace this with your logic)
-                    console.log('Server response:', data);
-                    if (data !== null) {
-                        window.location.href = '/KK';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error submitting form:', error);
-                });
+            // Get the edited values
+            const editedKK = document.getElementById('nokk').value;
+            const editedStatus = document.getElementById('statusaktif').value;
+            const itemId = document.getElementById('editItemId').value;
+
+            // Prepare the data to be sent to the server for update
+            const updatedData = {
+            id: itemId,
+            nokk: editedKK,
+            statusaktif: editedStatus,
+            };
+
+            // Make a PUT request using the Fetch API (replace 'http://example.com/update-endpoint' with your actual update endpoint)
+            fetch(`http://127.0.0.1:8000/api/KK/${itemId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(updatedData),
+            })
+            .then(response => response.json())
+            .then(data => {
+            // Handle the response from the server
+            console.log('Update response:', data);
+
+            // Redirect to /KK on successful update
+            if (data !== null) {
+                window.location.href = '/KK';
+            }
+            })
+            .catch(error => {
+            console.error('Error updating data:', error);
             });
+        });
         </script>
     </body>
 </html>

@@ -48,10 +48,25 @@
                     </div>
                 </nav>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             <script>
-                // Add an event listener to the logout button
-                document.getElementById('logoutButton').addEventListener('click', function () {
-                    localStorage.removeItem('token');
-                    window.location.href = '/login'
+                document.getElementById('logoutButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default action
+
+                    axios.get('http://127.0.0.1:8000/api/logout', {
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token') // Use the token from local storage
+                        }
+                    })
+                    .then(function(response) {
+                        // Handle successful logout (e.g., redirect to login page)
+                        console.log(response.data);
+                        localStorage.removeItem('token'); // Remove the token from local storage
+                        window.location.href = '/'; // Redirect to login page
+                    })
+                    .catch(function(error) {
+                        // Handle logout error
+                        console.error(error.response.data);
+                    });
                 });
             </script>

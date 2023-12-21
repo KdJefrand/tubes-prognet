@@ -88,7 +88,11 @@
         const itemId = window.location.pathname.split('/').pop();
 
         // Fetch existing data for editing
-        fetch(`http://127.0.0.1:8000/api/Agama/${itemId}`)
+        fetch(`http://127.0.0.1:8000/api/Agama/${itemId}`, {
+            headers:{
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then(response => response.json())
             .then(existingData => {
             // Fill the form fields with existing data
@@ -120,6 +124,7 @@
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(updatedData),
             })

@@ -35,7 +35,7 @@ class HubunganKKController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('hubungankk_edit');
     }
 
     /**

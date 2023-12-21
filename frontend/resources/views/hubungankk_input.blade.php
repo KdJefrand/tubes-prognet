@@ -49,14 +49,14 @@
                                     <div class="card shadow-lg border-0 rounded-lg mt-3 mb-3">
                                         <div class="card-header"><h3 class="text-center font-weight-light my-4">Input Hubungan Baru</h3></div>
                                         <div class="card-body">
-                                            <form>
+                                            <form id="myForm">
                                                 <div class="form-floating mb-3">
-                                                    <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                    <label for="inputEmail">Nama Hubungan</label>
+                                                    <input class="form-control" id="hubungankk" type="text"/>
+                                                    <label for="hubungankk">Nama Hubungan</label>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                     <a class="btn btn-primary" href="/HubunganKK">Kembali</a>
-                                                    <a class="btn btn-primary" href="index.html">Buat</a>
+                                                    <button type="submit" class="btn btn-primary">Buat</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -81,5 +81,37 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{ asset('js/scripts.js')}}"></script>
+        <script>
+            document.getElementById('myForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get the value of the 'hubungankk' input
+                const hubungankkValue = document.getElementById('hubungankk').value;
+
+                // Prepare the form data
+                const formData = new FormData();
+                formData.append('hubungankk', hubungankkValue);
+
+                // Make a POST request using the Fetch API
+                fetch('http://127.0.0.1:8000/api/HubunganKK', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization' : 'Bearer ' + localStorage.getItem('token')
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the server (you can replace this with your logic)
+                    console.log('Server response:', data);
+                    if (data !== null) {
+                        window.location.href = '/HubunganKK';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting form:', error);
+                });
+            });
+        </script>
     </body>
 </html>

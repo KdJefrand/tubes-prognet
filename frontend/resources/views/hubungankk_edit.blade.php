@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Agama - Tambah - KK</title>
+        <title>Hubungan - Tambah - KK</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="{{ asset('css/styles.css')}}" rel="stylesheet">
@@ -37,25 +37,26 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">AGAMA</h1>
+                        <h1 class="mt-4">HUBUNGAN KELUARGA</h1>
                         <div class="card mb-4">
                             <div class="card-body">
-                                Tambah Agama
+                                Edit Hubungan Keluarga
                             </div>
                         </div>
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-5">
                                     <div class="card shadow-lg border-0 rounded-lg mt-3 mb-3">
-                                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Input Agama Baru</h3></div>
+                                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Edit Hubungan</h3></div>
                                         <div class="card-body">
                                             <form id="myForm">
                                                 <div class="form-floating mb-3">
-                                                    <input class="form-control" id="agama" type="text" placeholder="name@example.com" />
-                                                    <label for="agama">Nama Agama</label>
+                                                    <input class="form-control" id="hubungankk" type="text"/>
+                                                    <label for="hubungankk">Nama Hubungan</label>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                    <a class="btn btn-primary" href="/Agama">Kembali</a>
+                                                    <input type="hidden" id="editItemId" name="editItemId">
+                                                    <a class="btn btn-primary" href="/HubunganKK">Kembali</a>
                                                     <button type="submit" class="btn btn-primary">Buat</button>
                                                 </div>
                                             </form>
@@ -82,36 +83,64 @@
         <script src="{{ asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{ asset('js/scripts.js')}}"></script>
         <script>
-            document.getElementById('myForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+        // Get the item ID from the URL
+        const itemId = window.location.pathname.split('/').pop();
 
-                // Get the value of the 'agama' input
-                const agamaValue = document.getElementById('agama').value;
-
-                // Prepare the form data
-                const formData = new FormData();
-                formData.append('agama', agamaValue);
-
-                // Make a POST request using the Fetch API
-                fetch('http://127.0.0.1:8000/api/Agama', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Authorization' : 'Bearer ' + localStorage.getItem('token')
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response from the server (you can replace this with your logic)
-                    console.log('Server response:', data);
-                    if (data !== null) {
-                        window.location.href = '/Agama';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error submitting form:', error);
-                });
+        // Fetch existing data for editing
+        fetch(`http://127.0.0.1:8000/api/HubunganKK/${itemId}`, {
+            headers:{
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => response.json())
+            .then(existingData => {
+            // Fill the form fields with existing data
+            document.getElementById('hubungankk').value = existingData.hubungankk;
+            document.getElementById('editItemId').value = existingData.id;
+            })
+            .catch(error => {
+            console.error('Error fetching existing data:', error);
             });
+        </script>
+
+        <!-- Script to Handle Edit Form Submission -->
+        <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the edited values
+            const editedHubunganKK = document.getElementById('hubungankk').value;
+            const itemId = document.getElementById('editItemId').value;
+
+            // Prepare the data to be sent to the server for update
+            const updatedData = {
+            id: itemId,
+            hubungankk: editedHubunganKK,
+            };
+
+            // Make a PUT request using the Fetch API (replace 'http://example.com/update-endpoint' with your actual update endpoint)
+            fetch(`http://127.0.0.1:8000/api/HubunganKK/${itemId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(updatedData),
+            })
+            .then(response => response.json())
+            .then(data => {
+            // Handle the response from the server
+            console.log('Update response:', data);
+
+            // Redirect to /HubunganKK on successful update
+            if (data !== null) {
+                window.location.href = '/HubunganKK';
+            }
+            })
+            .catch(error => {
+            console.error('Error updating data:', error);
+            });
+        });
         </script>
     </body>
 </html>

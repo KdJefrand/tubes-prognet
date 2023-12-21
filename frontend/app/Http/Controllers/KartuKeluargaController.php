@@ -35,7 +35,7 @@ class KartuKeluargaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('kartukeluarga_edit');
     }
 
     /**

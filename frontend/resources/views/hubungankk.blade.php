@@ -23,12 +23,12 @@
         
             table th:nth-child(1),
             table td:nth-child(1) {
-                width: 65%;
+                width: 10%;
             }
         
             table th:nth-child(2),
             table td:nth-child(2) {
-                width: 30%;
+                width: 50%;
             }
         </style>
     </head>
@@ -50,31 +50,16 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Hubungan Keluarga</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Hubungan Keluarga</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>...Ayah/Bapak/Papa...</td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning">
-                                                    <i class="fas fa-solid fa-shake fa-pencil"></i> Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    <i class="fas fa-solid fa-shake fa-trash"></i> Hapus
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -94,5 +79,81 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{ asset('js/scripts.js')}}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('http://127.0.0.1:8000/api/HubunganKK', {
+                    headers: {
+                        'Authorization' : 'Bearer '+ localStorage.getItem('token')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                // Get the table body element
+                const tableBody = document.querySelector('tbody');
+    
+                // Loop through the data and create table rows
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const idCell = document.createElement('td');
+                        const hubungankkCell = document.createElement('td');
+                        const actionCell = document.createElement('td');
+        
+                        // Set the content of each cell
+                        idCell.textContent = item.id;
+                        hubungankkCell.textContent = item.hubungankk;
+        
+                        // Create Edit button
+                        const editButton = document.createElement('button');
+                        editButton.textContent = 'Edit';
+                        editButton.className = 'btn btn-warning me-2';
+                        editButton.addEventListener('click', () => {
+                        // Add logic to handle edit button click (e.g., redirect to edit page)
+                        window.location.href = `/HubunganKK/${item.id}`
+                        });
+        
+                        // Create Delete button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'btn btn-danger';
+                        deleteButton.addEventListener('click', () => {
+                            fetch(`http://127.0.0.1:8000/api/HubunganKK/${item.id}`, {
+                                headers: {
+                                    'Authorization' : 'Bearer '+ localStorage.getItem('token')
+                                },
+                                method: 'DELETE'
+                            })
+                            .then(response => {
+                            if (response.ok) {
+                            // Handle successful deletion (e.g., remove the row from the table)
+                            row.remove();
+                            console.log(`Item with ID ${item.id} deleted successfully`);
+                            } else {
+                            // Handle unsuccessful deletion (e.g., show an error message)
+                            console.error('Error deleting item:', response.statusText);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting item:', error);
+                        });
+                        });
+        
+                        // Append buttons to the action cell
+                        actionCell.appendChild(editButton);
+                        actionCell.appendChild(deleteButton);
+        
+                        // Append cells to the row
+                        row.appendChild(idCell);
+                        row.appendChild(hubungankkCell);
+                        row.appendChild(actionCell);
+        
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                console.error('Error fetching data:', error);
+                });
+            });
+        </script>
     </body>
 </html>
