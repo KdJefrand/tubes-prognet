@@ -93,7 +93,7 @@
                 formData.append('hubungankk', hubungankkValue);
 
                 // Make a POST request using the Fetch API
-                fetch('http://127.0.0.1:8000/api/HubunganKK', {
+                fetch('https://api-group4-prognet.manpits.xyz/api/HubunganKK', {
                     method: 'POST',
                     body: formData,
                     headers: {

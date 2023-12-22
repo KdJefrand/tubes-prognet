@@ -78,7 +78,7 @@
         const itemId = window.location.pathname.split('/').pop();
 
         // Fetch existing data for editing
-        fetch(`http://127.0.0.1:8000/api/KK/${itemId}`, {
+        fetch(`https://api-group4-prognet.manpits.xyz/api/KK/${itemId}`, {
             headers:{
                 'Authorization' : 'Bearer ' + localStorage.getItem('token')
             }
@@ -123,7 +123,7 @@
             };
 
             // Make a PUT request using the Fetch API (replace 'http://example.com/update-endpoint' with your actual update endpoint)
-            fetch(`http://127.0.0.1:8000/api/KK/${itemId}`, {
+            fetch(`https://api-group4-prognet.manpits.xyz/api/KK/${itemId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

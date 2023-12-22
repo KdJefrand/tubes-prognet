@@ -7,7 +7,7 @@
             }
 
             // Fetch Agama count from the API
-            fetch('http://127.0.0.1:8000/api/Dashboard', {
+            fetch('https://api-group4-prognet.manpits.xyz/api/Dashboard', {
               headers: {
                   'Authorization' : 'Bearer '+ localStorage.getItem('token')
               },

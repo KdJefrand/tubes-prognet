@@ -14,8 +14,6 @@ MySQL - 10.4.32-MariaDB : Database - tubes_prognet
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`tubes_prognet` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
 
-USE `tubes_prognet`;
-
 /*Table structure for table `agamas` */
 
 DROP TABLE IF EXISTS `agamas`;

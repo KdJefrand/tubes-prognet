@@ -93,7 +93,7 @@
                 formData.append('agama', agamaValue);
 
                 // Make a POST request using the Fetch API
-                fetch('http://127.0.0.1:8000/api/Agama', {
+                fetch('https://api-group4-prognet.manpits.xyz/api/Agama', {
                     method: 'POST',
                     body: formData,
                     headers: {

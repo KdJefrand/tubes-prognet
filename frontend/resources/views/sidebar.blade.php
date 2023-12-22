@@ -53,7 +53,7 @@
                 document.getElementById('logoutButton').addEventListener('click', function(event) {
                     event.preventDefault(); // Prevent default action
 
-                    axios.get('http://127.0.0.1:8000/api/logout', {
+                    axios.get('https://api-group4-prognet.manpits.xyz/api/logout', {
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('token') // Use the token from local storage
                         }

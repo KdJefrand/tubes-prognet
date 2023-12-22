@@ -67,7 +67,7 @@
         <script src="{{ asset('js/scripts.js')}}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                fetch('http://127.0.0.1:8000/api/Penduduk', {
+                fetch('https://api-group4-prognet.manpits.xyz/api/Penduduk', {
                     headers: {
                         'Authorization' : 'Bearer '+ localStorage.getItem('token')
                     },
@@ -108,7 +108,7 @@
                         deleteButton.textContent = 'Delete';
                         deleteButton.className = 'btn btn-danger';
                         deleteButton.addEventListener('click', () => {
-                            fetch(`http://127.0.0.1:8000/api/Penduduk/${item.id}`, {
+                            fetch(`https://api-group4-prognet.manpits.xyz/api/Penduduk/${item.id}`, {
                                 method: 'DELETE'
                                 headers: {
                                     'Authorization' : 'Bearer '+ localStorage.getItem('token')

@@ -90,7 +90,7 @@
                 formData.append('statusaktif', statusaktifValue);
 
                 // Make a POST request using the Fetch API
-                fetch('http://127.0.0.1:8000/api/KK', {
+                fetch('https://api-group4-prognet.manpits.xyz/api/KK', {
                     method: 'POST',
                     body: formData,
                     headers: {

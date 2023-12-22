@@ -10,7 +10,7 @@
     <div class="container">
     <div class="card mt-5 mx-auto p-3" style="width: 450px;">
         <div class="card-body">
-            <form action="http://127.0.0.1:8000/api/login" method="POST">
+            <form action="https://api-group4-prognet.manpits.xyz/api/login" method="POST">
               @csrf
                 <div>
                     <p class="text-center fs-4">Selamat Datang</p>
@@ -45,7 +45,7 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('exampleInputPassword1').value;
 
-        axios.post('http://127.0.0.1:8000/api/login', {
+        axios.post('https://api-group4-prognet.manpits.xyz/api/login', {
             email: email,
             password: password,
         })
@@ -61,6 +61,7 @@
         .catch(function (error) {
             // Handle login error
             console.error(error.response.data);
+            alert('Login failed. ' + error.response.data.message);
         });
     });
 </script>

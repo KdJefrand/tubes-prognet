@@ -82,7 +82,7 @@
         <script src="{{ asset('js/scripts.js')}}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                fetch('http://127.0.0.1:8000/api/Agama', {
+                fetch('https://api-group4-prognet.manpits.xyz/api/Agama', {
                     headers: {
                         'Authorization' : 'Bearer '+ localStorage.getItem('token')
                     }
@@ -117,7 +117,7 @@
                         deleteButton.textContent = 'Delete';
                         deleteButton.className = 'btn btn-danger';
                         deleteButton.addEventListener('click', () => {
-                            fetch(`http://127.0.0.1:8000/api/Agama/${item.id}`, {
+                            fetch(`https://api-group4-prognet.manpits.xyz/api/Agama/${item.id}`, {
                                 headers: {
                                     'Authorization' : 'Bearer '+ localStorage.getItem('token')
                                 },
